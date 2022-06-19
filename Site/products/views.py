@@ -1,9 +1,15 @@
 from webbrowser import get
+# page system
 from django.shortcuts import redirect, render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
+# product table
 from products.models import Products
-from .form import ProductForm, RowProductForm
-
+# user table
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+# all form
+from .form import ProductForm, RowProductForm, UserForm
+from django.contrib import messages
 
 
 def product_list(request, *args, **kwargs):
@@ -14,10 +20,7 @@ def product_list(request, *args, **kwargs):
     return render(request, 'index.html', context)
 
 
-
-
-
-
+@login_required
 def product_create(request):
     """create form facile"""
     form = ProductForm(request.POST or None)
@@ -29,7 +32,7 @@ def product_create(request):
     return render(request, 'products/create.html', {'form':form, 'message': message})
 
 
-
+@login_required
 def product_update(request, pk):
     """update form"""
     obj = get_object_or_404(Products, id=pk)
@@ -46,6 +49,7 @@ def product_update(request, pk):
     return render(request, 'products/update.html', {'form':form, 'message': message})
 
 
+@login_required
 def product_delete(request, myid):
     obj = get_object_or_404(Products, id=myid)
     name = obj.name
@@ -58,7 +62,7 @@ def product_delete(request, myid):
 
 
 
-
+@login_required
 def product_manager(request):
     obj = Products.objects.all()    
     context ={'title': 'table',
@@ -94,7 +98,37 @@ def product_manager(request):
 #     return render(request, 'products/create.html', {'form':form, 'message':message})
   
     
-    
+# USER REGISTER
+
+def register(request):
+    form = UserForm()
+    if request.method == 'POST':
+        form = UserForm(data=request.POST)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'yoour compte is created')
+            return redirect('connexion')
+        else:
+            messages.error(request, form.errors)
+    return render(request, 'user/register.html', {'form':form, })   
+
+def connexion(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None and user.is_active:
+            login(request, user)
+            messages.success(request, 'Bienvenue')
+            return redirect('manager')
+        else:
+            messages.error(request, 'authentif error')
+    return render(request, 'user/login.html', )
+
+@login_required
+def deconnection(request):
+    logout(request)
+    return redirect('connexion')
     
     
     
