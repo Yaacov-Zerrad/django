@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load filter %}
+
+{% block nav %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>bienvenue</h1>
+    <p>afiche mes var. nom: {{name }}. age: {{age}} </p>
+    <p>list: {{list}} </p>
+
+
+
+
+    <h4>boucle pour afficher</h4>
+    {% endblock %}
+
+
+
+    {% block list %}
+
+    {% for item in list %}
+        <li>{{ forloop.counter }}  ----- normal ------------ {{ item }} </li>
+        <li>{{ forloop.counter }}  ----- fitre integer -----  {{ item|add:"2" }} </li>
+        <li>{{ forloop.counter }}  ----- filtre fabriquer --  {{ item|addcent }} </li>
+        <li>{{ forloop.counter }}  ----- filtre avec arg --  {{  str|cut:"55" }} </li>
+        <li>{{ forloop.counter }}  ----- filtre avec arg --  {{  str|minusc }} </li>
+            {% if item >= 50 %}
+            <h5> superieur a 50 </h5> 
+            {% else %}
+            <h5> inferieur a 50 </h5> 
+
+            {% endif %}
+
+        
+        {% empty %}
+        <h4>pas d element</h4>
+        {% endfor %}
+    
+
+{% endblock %}
+
+    {% block h3 %}
+        voici block h3
+    {% endblock %}
