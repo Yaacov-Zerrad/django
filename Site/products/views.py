@@ -128,9 +128,10 @@ def connexion(request):
 @login_required
 def deconnection(request):
     logout(request)
-    return redirect('connexion')
+    return redirect('login')
     
-    
+
+
     
     
     
