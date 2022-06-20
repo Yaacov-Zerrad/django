@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 
 class UserForm(UserCreationForm):
+    """model form for user"""
     class Meta:
         model = User
         fields = [
@@ -68,7 +69,7 @@ class ProductForm(forms.ModelForm):
     
     
 class RowProductForm(forms.Form):
-    """form difficile (en wiew)"""
+    """form difficile (en view)"""
     name = forms.CharField(label='Name', widget=forms.TextInput(
         attrs={
             'placeholder': 'Product name'

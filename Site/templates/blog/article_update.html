@@ -11,8 +11,9 @@
 <h3>{{ message }} </h3>
 
 
+
 <center>
-  <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+  <form action="{% url 'manager' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
