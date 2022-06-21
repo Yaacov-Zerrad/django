@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+  {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+{% for message in messages %}
+<h3>{{ message }} </h3>
+{% endfor %}
+
+
+<center>
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter your username" class="form-label">
+    <br>
+    <input type="password" name="password" placeholder="Enter your password" class="form-label">
+    <br>
+    <button type="submit" class="btn btn-primary"> Connexion </button>
+    <br>
+    <br>
+    <p>forget password ? <a href="/reset_password">reset</a>
+    
+    </p>
+  
+  
+  
+    </form>
+  </center>
+  
+  
+  
+  {% endblock %}

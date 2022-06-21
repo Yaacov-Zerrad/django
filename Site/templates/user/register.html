@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+  {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+{% for message in messages %}
+<h3>{{ message }} </h3>
+{% endfor %}
+
+<center>
+    <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+  
+      <button type="submit"> Save </button>
+  
+  
+  
+    </form>
+  </center>
+  
+  
+  
+  {% endblock %}

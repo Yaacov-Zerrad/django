@@ -1,13 +1,32 @@
 from logging import PlaceHolder
+# form systeme
 from django import forms
 from .models import Products
+# authentif system
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class UserForm(UserCreationForm):
+    """model form for user"""
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'password1',
+            'password2',
+        ]
+
+
 
 class ProductForm(forms.ModelForm):
     """form facile"""
 # ceci est copier de la clsas en dessou ca fais plus rapide
     name = forms.CharField(label='Name', widget=forms.TextInput(
         attrs={
-            'placeholder': 'Product name'
+            'placeholder': 'Product name',
+            'class':'form-label',
         }
     ))
     description = forms.CharField(label='Description', widget=forms.Textarea(
@@ -15,7 +34,7 @@ class ProductForm(forms.ModelForm):
             'placeholder': 'Enter product description ',
             'rows':5,
             'cols':30,
-            'class': 'descr',
+            'class': 'form-label',
             'id': 'my_id',
         }
     ))
@@ -50,7 +69,7 @@ class ProductForm(forms.ModelForm):
     
     
 class RowProductForm(forms.Form):
-    """form difficile (en wiew)"""
+    """form difficile (en view)"""
     name = forms.CharField(label='Name', widget=forms.TextInput(
         attrs={
             'placeholder': 'Product name'

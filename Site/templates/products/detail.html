@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h3>article list</h3>
+<div class="row">
+    {% for article in articles %}
+    <div class="col-md-3">
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ article.title }}</h5>
+      <a href="#" class="btn btn-primary">add to card</a>
+    </div>
+  </div>
+</div>
+  {% endfor %}
+</div>
+{% endblock %}
