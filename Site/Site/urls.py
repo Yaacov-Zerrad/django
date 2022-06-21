@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('products.urls')),
     path('blog/', include('blog.urls')),
     path('courses/', include('courses.urls')),
+    path('model/', include('modelrelation.urls')),
     
 ]
 
