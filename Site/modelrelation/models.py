@@ -19,8 +19,8 @@ class Framework(models.Model):
 
   
 """
-CASCADE = eface parent eface enfant
-PROTECT = eface que parent
+CASCADE = si efface parent alors efface enfant
+PROTECT = efface que parent
 SET_NULL = met null a la place
 SET_DEFAULT = met valeur decider par default a la plce
 DO_NOTHTING = laisse comme c est (a ne pas faire)
