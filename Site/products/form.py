@@ -22,11 +22,13 @@ class UserForm(UserCreationForm):
 
 class ProductForm(forms.ModelForm):
     """form facile"""
+    error_css_class = 'error-field'
+    required_css_class = 'required-field'
 # ceci est copier de la clsas en dessou ca fais plus rapide
     name = forms.CharField(label='Name', widget=forms.TextInput(
         attrs={
             'placeholder': 'Product name',
-            'class':'form-label',
+            "class": "form-control",
         }
     ))
     description = forms.CharField(label='Description', widget=forms.Textarea(
@@ -70,10 +72,10 @@ class ProductForm(forms.ModelForm):
     
 class RowProductForm(forms.Form):
     """form difficile (en view)"""
+    error_css_class = 'error-field'
+    required_css_class = 'required-field'
     name = forms.CharField(label='Name', widget=forms.TextInput(
-        attrs={
-            'placeholder': 'Product name'
-        }
+        attrs={"class": "form-control",'placeholder': 'Product name',}
     ))
     description = forms.CharField(label='Description', widget=forms.Textarea(
         attrs={
