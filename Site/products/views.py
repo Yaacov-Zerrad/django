@@ -13,10 +13,15 @@ from django.contrib import messages
 
 
 def product_list(request, *args, **kwargs):
+    number = request.session.get('visit', 0) +1
+    request.session['visit'] = number
+    if number > 4:
+        del(request.session['visit'])
     """return page html"""
     products = Products.objects.all()
     context = { 'title': 'product_list',
-               'products':products }
+               'products':products,
+               'number':number }
     return render(request, 'index.html', context)
 
 
@@ -62,12 +67,29 @@ def product_delete(request, myid):
 
 
 
-@login_required
+# @login_required(login_url='login')
+# def product_manager(request):
+#     obj = Products.objects.all()    
+#     context ={'title': 'table',
+#               'object': obj }
+#     return render(request, 'products/manager.html', context)
+
+#avec coucis
+@login_required(login_url='login')
 def product_manager(request):
-    obj = Products.objects.all()    
+    user_name = request.COOKIES.get('username')
+    obj = Products.objects.all() 
     context ={'title': 'table',
-              'object': obj }
-    return render(request, 'products/manager.html', context)
+              'object': obj ,
+              'user_name': user_name
+              }
+    
+    reponse = render(request, 'products/manager.html', context)
+    username = request.user.username
+    password = request.user.password
+    reponse.set_cookie('username', username)# , max_age=30
+    reponse.set_cookie('password', password)
+    return reponse
 
 # def product_create(request):
 #     """create form super diff"""
